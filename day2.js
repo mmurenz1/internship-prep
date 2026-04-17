@@ -1,11 +1,8 @@
 "use strict";
-const mickel = {
-    name: "Mickel",
-    age: 21,
-    isIntern: true,
-    company: "Intuit",
-};
-function addNumbers(a, b) {
-    return a + b;
+function getFirstItem(arr) {
+    return arr[0];
 }
-console.log(addNumbers(5, 10));
+const firstNumber = getFirstItem([1, 2, 3]);
+const firstName = getFirstItem(["Mickel", "Jordan", "Jeremy"]);
+console.log(firstNumber);
+console.log(firstName);

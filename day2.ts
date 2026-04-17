@@ -1,19 +1,9 @@
-interface User {
-    name: String;
-    age: number;
-    isIntern: boolean;
-    company: String;
+function getFirstItem<T>(arr: T[]): T {
+    return arr[0];
 }
 
-const mickel: User = {
-    name: "Mickel",
-    age: 21,
-    isIntern: true,
-    company: "Intuit",
-}
+const firstNumber = getFirstItem([1, 2, 3]);
+const firstName = getFirstItem(["Mickel", "Jordan", "Jeremy"]);
 
-function addNumbers(a: number, b: number): number {
-    return a + b;
-}
-
-console.log(addNumbers(5, 10));
+console.log(firstNumber);
+console.log(firstName);
