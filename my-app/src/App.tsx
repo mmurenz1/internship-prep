@@ -1,32 +1,44 @@
-import { useReducer } from 'react';
+import { useState } from 'react';
 
-interface State {
-  count: number;
-  error: string;
-}
-
-function reducer(state: State, action: string) {
-  if (action === 'increment') {
-    return { ...state, count: state.count + 1, error: '' };
-  }
-  if (action === 'decrement') {
-    if (state.count === 0) {
-      return { ...state, error: "Cannot go below 0!" };
-    }
-    return { ...state, count: state.count - 1, error: "" };
-  }
-  return state;
+interface LoginForm {
+  username: string;
+  password: string;
 }
 
 function App() {
-  const [state, dispatch] = useReducer(reducer, { count: 0, error: "" });
+  const [form, setForm] = useState<LoginForm>({ username: "", password: "" });
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+
+  const handleSubmit = () => {
+    if (!form.username || !form.password) {
+      setError("Please fill in all fields.");
+      return;
+    }
+
+    setError("");
+    setSuccess(true);
+  };
 
   return (
     <div>
-      <h1>Count: {state.count}</h1>
-      <p style={{ color: "red" }}>{state.error}</p>
-      <button onClick={() => dispatch("increment")}>Add 1</button>
-      <button onClick={() => dispatch("decrement")}>Minus 1</button>
+      <h1>Login</h1>
+      <input
+        placeholder="Username"
+        value={form.username}
+        onChange={(e) => setForm({ ...form, username: e.target.value })}
+      />
+      <br />
+      <input
+        placeholder="Password"
+        type="password"
+        value={form.password}
+        onChange={(e) => setForm({ ...form, password: e.target.value })}
+      />
+      <br />
+      <button onClick={handleSubmit}>Login</button>
+      <p style={{ color: "red" }}>{error}</p>
+      {success && <p style={{ color: "green" }}>Login Successful!</p>}
     </div>
   )
 }
