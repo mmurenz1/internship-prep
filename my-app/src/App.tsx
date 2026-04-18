@@ -1,46 +1,39 @@
-import { useState } from 'react';
-
-interface LoginForm {
-  username: string;
-  password: string;
-}
+import { useSelector, useDispatch } from "react-redux";
+import { login, logout } from "./store";
+import { useState } from "react";
 
 function App() {
-  const [form, setForm] = useState<LoginForm>({ username: "", password: "" });
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [username, setUsername] = useState("");
+  const isLoggedIn = useSelector((state: any) => state.auth.isLoggedIn);
+  const loggedInUser = useSelector((state: any) => state.auth.username);
+  const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    if (!form.username || !form.password) {
-      setError("Please fill in all fields.");
-      return;
+  const handleLogin = () => {
+    if (username) {
+      dispatch(login(username));
     }
-
-    setError("");
-    setSuccess(true);
   };
 
   return (
     <div>
-      <h1>Login</h1>
-      <input
-        placeholder="Username"
-        value={form.username}
-        onChange={(e) => setForm({ ...form, username: e.target.value })}
-      />
-      <br />
-      <input
-        placeholder="Password"
-        type="password"
-        value={form.password}
-        onChange={(e) => setForm({ ...form, password: e.target.value })}
-      />
-      <br />
-      <button onClick={handleSubmit}>Login</button>
-      <p style={{ color: "red" }}>{error}</p>
-      {success && <p style={{ color: "green" }}>Login Successful!</p>}
+      {!isLoggedIn ? (
+        <div>
+          <h1>Please Login</h1>
+          <input
+            placeholder="Username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
+          <button onClick={handleLogin}>Login</button>
+        </div>
+      ) : (
+        <div>
+          <h1>Welcome, {loggedInUser}!</h1>
+          <button onClick={() => dispatch(logout())}>Logout</button>
+        </div>
+      )}
     </div>
-  )
+  );
 }
 
 export default App;
