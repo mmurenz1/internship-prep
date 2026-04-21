@@ -1,9 +1,22 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import "@testing-library/jest-dom";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { Provider } from "react-redux";
+import { store } from "./store";
+import App from "./App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+test("shows login form on start", () => {
+  render(
+    <Provider store={store}>
+      <App />?
+    </Provider>
+  );
+  expect(screen.getByText("Please Login")).toBeInTheDocument();
 });
+
+test("login button shows on start", () => {
+  render(
+    <Provider store={store}>
+      <App />
+    </Provider>
+  );
+  expect(screen.getByText("Login")).toBeInTheDocument();});
