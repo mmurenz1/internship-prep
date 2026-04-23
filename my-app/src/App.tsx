@@ -27,7 +27,7 @@ function App() {
             onChange={(e) => setUsername(e.target.value)}
           />
           <button onClick={handleLogin} disabled={isLoading}>
-            {isLoading ? "Logging in..." : "Login"}
+            {isLoading ? "Logging in..." : "Sign In"}
           </button>
         </div>
       ) : (
