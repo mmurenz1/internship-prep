@@ -20,7 +20,7 @@ function App() {
     <div>
       {!isLoggedIn ? (
         <div>
-          <h1>Please Login</h1>
+          <h1>Welcome to Intuit - Please Login</h1>
           <input
             placeholder="Username"
             value={username}
